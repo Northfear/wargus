@@ -41,7 +41,8 @@ function RunSaveMenu(isreturn)
   menu:addLabel(_("Save Game"), 384 / 2, 11)
 
   local t = menu:addTextInputField("game.sav", (384 - 300 - 18) / 2, 11 + 36, 318)
-  t:requestFocus()
+  -- no need to call on screen keyboards right away
+  --t:requestFocus()
 
   local browser = menu:addBrowser("~save", ".sav.gz$",
     (384 - 300 - 18) / 2, 11 + 36 + 22, 318, 126)

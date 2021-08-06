@@ -1596,10 +1596,10 @@ function BuildProgramStartMenu()
 
   menu:addLabel(wargus.Name .. _(" V") .. wargus.Version .. ", " .. wargus.Copyright, offx + 320, (Video.Height - 90) + 18*4, Fonts["small"])
   
-  menu:addFullButton(_("~!Single Player Game"), "s", offx + 208, offy + 104 + 36*0,
+  menu:addFullButton(_("~!Single Player Game"), "s", offx + 208, offy + 104 + 36*1,
     function() RunSinglePlayerTypeMenu(); menu:stop(1) end)
-  menu:addFullButton(_("~!Multi Player Game"), "m", offx + 208, offy + 104 + 36*1,
-                     function() RunMultiPlayerGameMenu(); menu:stop(1) end)
+  --menu:addFullButton(_("~!Multi Player Game"), "m", offx + 208, offy + 104 + 36*1,
+  --                   function() RunMultiPlayerGameMenu(); menu:stop(1) end)
   menu:addFullButton(_("~!Replay Game"), "r", offx + 208, offy + 104 + 36*2,
     function() RunReplayGameMenu(); menu:stop(1) end)
   menu:addFullButton(_("~!Options"), "o", offx + 208, offy + 104 + 36*3,

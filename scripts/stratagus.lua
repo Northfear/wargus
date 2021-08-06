@@ -418,7 +418,7 @@ local defaultPreferences = {
 	StratagusTranslation = "",
 	TipNumber = 0,
 	UseFancyBuildings = false,      --  Enable/disable fancy building (random mirroring buildings)
-	VideoFullScreen = false,
+	VideoFullScreen = true,
 	VideoHeight = 480,
 	VideoWidth = 640,
 	VideoShader = "none",
@@ -427,9 +427,11 @@ local defaultPreferences = {
 	OnlineServer = "network.stratagus.de",
 	OnlinePort = 6112,
 	SimplifiedAutoTargeting = true,
-  FogOfWarType = "enhanced",  -- "enhanced" or "legacy". Legacy type of FOW doesn't work with shadow casting FOV.
+  FogOfWarType = "legacy",  -- "enhanced" or "legacy". Legacy type of FOW doesn't work with shadow casting FOV.
   FogOfWarBilinear = false,     -- Enable/Disable bilinear filtration for fog of war
-  MapGrid = false
+  MapGrid = false,
+  ControllerSpeed = 10,
+  BilinearFilter = false
 }
 
 --- Skirmish Setup --------------
@@ -493,6 +495,8 @@ SetMusicVolume(wc2.preferences.MusicVolume)
 SetTranslationsFiles(wc2.preferences.StratagusTranslation, wc2.preferences.GameTranslation)
 SetVideoFullScreen(wc2.preferences.VideoFullScreen)
 SetVideoResolution(wc2.preferences.VideoWidth, wc2.preferences.VideoHeight)
+SetControllerSpeed(wc2.preferences.ControllerSpeed)
+SetBilinearFilter(wc2.preferences.BilinearFilter)
 
 UI.ButtonPanel.ShowCommandKey = wc2.preferences.ShowCommandKey
 Preference.MineNotifications = wc2.preferences.MineNotifications

@@ -666,30 +666,8 @@ function BuildVideoOptionsMenu()
 
    local videoModes = {
       640, 480,
-      800, 480,
-      720, 480,
-      720, 576,
-      800, 600,
-      1024, 600,
-      1024, 768,
-      1152, 864,
-      1280, 720,
-      1280, 768,
-      1280, 800,
-      1280, 960,
-      1280, 1024,
-      1360, 768,
-      1366, 768,
-      1440, 900,
-      1400, 1050,
-      1600, 900,
-      1600, 1200,
-      1600, 1280,
-      1680, 1050,
-      1920, 1080,
-      1920, 1200,
-      1920, 1440,
-      2560, 1600
+      848, 480,
+      960, 544
    }
 
    local vlist = {}
@@ -702,7 +680,7 @@ function BuildVideoOptionsMenu()
    menu:addLabel(_("Video Options"), offx + 176, offy + 1 + 26*-2)
    menu:addLabel(_("Video Resolution"), offx + 16, offy + 34 , Fonts["game"], false)
 
-   videoList = menu:addImageListBox(offx + 16, offy + 50, 200, 7*(table.getn(videoModes)/2+1), vlist)
+   videoList = menu:addImageListBox(offx + 16, offy + 50, 200, 55, vlist)
 
    local function cb(s)
       SetVideoSize(videoModes[videoList:getSelected()*2+1], videoModes[videoList:getSelected()*2+2])
