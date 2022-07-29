@@ -30,6 +30,8 @@ local function RunEditorNewMapMenu()
       Map.Info.Description = mapDescription:getText()
       Map.Info.MapWidth = mapSizes[1 + mapSizex:getSelected()]
       Map.Info.MapHeight = mapSizes[1 + mapSizey:getSelected()]
+      Map.Info.Preamble = ""
+      Map.Info.Postamble = ""
       LoadTileModels("scripts/tilesets/" .. tilesets[1 + dropDownTileset:getSelected()] .. ".lua")
       menu:stop()
       StartEditor(nil)
@@ -439,63 +441,286 @@ function RunEditorMapProperties()
   menu:run(false)
 end
 
+function EditScript(filename)
+   local contents
+   local preamble = filename:sub(-#"preamble") == "preamble"
+   if preamble then
+      contents = Map.Info.Preamble
+   else
+      contents = Map.Info.Postamble
+   end
+   if contents == "" then
+      if CanAccessFile(filename) then
+         contents = GetFileContent(filename)
+      else
+         if preamble then
+            contents = [[
+-- Stratagus preamble script.
+-- Use this script to set up anything that needs to run before the map is loaded.
+-- Commonly, this would be things like patching functions that place units, define
+-- players etc to modify the behaviour of these functions.
+
+if Editor.Running == EditorNotRunning then
+  -- Add code here
+end
+]]
+         else
+            contents = [[
+-- Stratagus postamble script.
+-- Use this script to set up anything after the map is loaded. Commonly this would
+-- be adding triggers or customizing players, their alliances or similar things.
+
+if Editor.Running == EditorNotRunning then
+  -- Add code here
+end
+]]
+         end
+      end
+   end
+   local menu = WarMenu()
+   local menubox = VBox({
+         HBox({
+               LFiller(),
+               LLabel(filename),
+               LFiller(),
+         }):withPadding(5),
+         LTextBox(contents):expanding():id("textbox"),
+         HBox({
+               LFiller(),
+               LHalfButton(_("Accept"), nil, function()
+                              if preamble then
+                                 Map.Info.Preamble = menu.textbox:getText()
+                              else
+                                 Map.Info.Postamble = menu.textbox:getText()
+                              end
+               end),
+               LHalfButton(_("Close"), nil, function() menu:stop() end),
+         }):withPadding(5)
+   }):withPadding(10)
+   menubox:addWidgetTo(menu, true)
+   menu:run()
+end
+
 --
 --  Main menu in editor.
 --
 function RunInEditorMenu()
-  local menu = WarGameMenu(panel(1))
+   local menu
 
-  menu:addLabel(_("Editor Menu"), 128, 11)
+   local function EditPreamble()
+      EditScript(mapname .. ".preamble")
+   end
 
-  menu:addHalfButton(_("Save (~<F11~>)"), "f11", 16, 40, RunEditorSaveMenu)
-  local buttonEditorLoad = -- To be removed when enabled.
-  menu:addHalfButton(_("Load (~<F12~>)"), "f12", 16 + 118, 40, RunEditorLoadMenu)
-  menu:addFullButton(_("Map Properties (~<F5~>)"), "f5", 16, 40 + 36 * 1, RunEditorMapProperties)
-  menu:addFullButton(_("Player Properties (~<F6~>)"), "f6", 16, 40 + 36 * 2, RunEditorPlayerProperties)
-  menu:addFullButton("~!Resize Map", "r", 16, 40 + 36 * 3, RunEditorEnlargeMenu)
+   local function EditPostamble()
+      EditScript(mapname .. ".postamble")
+   end
 
-  buttonEditorLoad:setEnabled(false) -- To be removed when enabled.
-
-  menu:addFullButton(_("E~!xit to Menu"), "x", 16, 40 + 36 * 4,
-    function() Editor.Running = EditorNotRunning; menu:stopAll(); end)
-  menu:addFullButton(_("Return to Editor (~<Esc~>)"), "escape", 16, 288 - 40,
-    function() menu:stop() end)
-
-  menu:run(false)
+   menu = WarMenuWithLayout(
+      panel(1),
+      VBox({
+            HBox({
+                  LFiller(),
+                  LLabel(_("Editor Menu")),
+                  LFiller(),
+            }):withPadding(5),
+            LFiller(),
+            HBox({
+                  LHalfButton(_("Help (~<F1~>)"), "f1", RunEditorHelpMenu),
+                  LFiller(),
+                  LHalfButton(_("Save (~<F11~>)"), "f11", RunEditorSaveMenu),
+            }),
+            LButton(_("Map Properties (~<F5~>)"), "f5", RunEditorMapProperties),
+            LButton(_("Player Properties (~<F6~>)"), "f6", RunEditorPlayerProperties),
+            LButton(_("~!Resize Map"), "r", RunEditorEnlargeMenu),
+            HBox({
+                  LHalfButton(_("Pr~!eamble"), "e", EditPreamble),
+                  LFiller():expanding(),
+                  LHalfButton(_("~!Postamble"), "p", EditPostamble)
+            }),
+            LLabel(""),
+            LButton(_("E~!xit to Menu"), "x", function() Editor.Running = EditorNotRunning; menu:stopAll(); end),
+            LButton(_("Return to Editor (~<Esc~>)"), "escape", function() menu:stop() end),
+      }):withPadding({10, 8})
+   )
+   menu:run(false)
 end
 
 --
 --  Function to edit unit properties in Editor
 --
-function EditUnitProperties()
-
-  if (GetUnitUnderCursor() == nil) then
-    return;
+function EditUnitProperties(units)
+  local function ShowResources(labelWidget, textWidget, selectedUnits)
+    local resource = nil
+    local amount = -1
+    for i,unit in ipairs(selectedUnits) do
+      local type = GetUnitVariable(unit, "Ident")
+      local r = GetUnitTypeData(type, "GivesResource")
+      if #r > 0 then
+        local held = GetUnitVariable(unit, "ResourcesHeld")
+        if not resource then
+          resource = r
+          amount = held
+        elseif resource == r then
+          if amount == -1 then
+            amount = held
+          else
+            amount = "<different amounts>"
+          end
+        else
+          resource = ""
+          break
+        end
+      else
+        resource = ""
+        break
+      end
+    end
+    if #resource > 0 then
+      labelWidget:setCaption(resource)
+      textWidget:setText(amount)
+    else
+      labelWidget:setCaption("no resource")
+      textWidget:setText("n/a")
+    end
   end
-  local menu = WarGameMenu(panel(1))
-  local sizeX = 256
-  local sizeY = 200 -- 288
 
-  menu:resize(sizeX, sizeY)
-  menu:addLabel(_("Unit properties"), sizeX / 2, 11)
-
-  if (GetUnitUnderCursor().Type.GivesResource == 0) then
-    menu:addLabel(_("Artificial Intelligence"), sizeX / 2, 11 + 36)
-    local activeCheckBox = menu:addImageCheckBox("Active", 15, 11 + 72, offi, offi2, oni, oni2)
-    activeCheckBox:setMarked(GetUnitUnderCursor().Active)
-
-    menu:addHalfButton("~!Ok", "o", 24, sizeY - 40,
-      function() GetUnitUnderCursor().Active = activeCheckBox:isMarked();  menu:stop() end)
-  else
-    local resourceName = {_("gold"), _("wood"), _("oil")}
-    local resource = GetUnitUnderCursor().Type.GivesResource - 1
-    menu:addLabel(_("Amount of ") .. resourceName[1 + resource] .. " :", 24, 11 + 36, nil, false)
-	local resourceValue = menu:addTextInputField(GetUnitUnderCursor().ResourcesHeld, sizeX / 2 - 30, 11 + 36 * 2, 60)
-
-    menu:addHalfButton("~!Ok", "o", 24, sizeY - 40,
-      function() GetUnitUnderCursor().ResourcesHeld = resourceValue:getText();  menu:stop() end)
+  local function ShowLifePercent(textWidget, selectedUnits)
+    local pct = 0
+    for i,unit in ipairs(selectedUnits) do
+      local hp = GetUnitVariable(unit, "HitPoints")
+      local maxHp = GetUnitTypeData(GetUnitVariable(unit, "Ident"), "HitPoints")
+      local unitPct = math.floor((hp / maxHp) * 10) * 10
+      if pct == 0 then
+        pct = unitPct
+      elseif pct ~= unitPct then
+        pct = -1
+      end
+    end
+    if pct >= 0 then
+      textWidget:setText("" .. pct)
+    else
+      textWidget:setText("<different amounts>")
+    end
   end
-  menu:addHalfButton(_("Cancel (~<Esc~>)"), "escape", 134, sizeY - 40,
-    function() menu:stop() end)
+
+  local function ShowPlayer(playerDropdown, selectedUnits)
+    playerDropdown:setSelected(GetUnitVariable(units[1], "Player"))
+  end
+
+  local function ShowRectangle(label, selectedUnits)
+    local pos = {100000, 100000, 0, 0}
+    for i,unit in ipairs(selectedUnits) do
+      local posx = GetUnitVariable(unit, "PosX")
+      local posy = GetUnitVariable(unit, "PosY")
+      pos[1] = math.min(pos[1], posx)
+      pos[2] = math.min(pos[2], posy)
+      pos[3] = math.max(pos[3], posx)
+      pos[4] = math.max(pos[4], posy)
+    end
+    label:setCaption("Units in {" .. pos[1] .. "," .. pos[2] .. "}, {" .. pos[3] .. "," .. pos[4] .. "}")
+  end
+
+  local menu = WarMenu(nil, panel(5), {Video.Width * 0.9, Video.Height * 0.6})
+
+  local unitstrings = {}
+  local function UpdateAll(selectedUnits)
+    local prevSelectionIdx
+    for i,unit in ipairs(units) do
+      if selectedUnits[1] == unit then
+        prevSelectionIdx = i - 1
+      end
+      unitstrings[i] = GetUnitVariable(unit, "Ident") .. " at " .. GetUnitVariable(unit, "PosX") .. "," .. GetUnitVariable(unit, "PosY") .. " from player " .. (GetUnitVariable(unit, "Player") + 1)
+    end
+    menu.unitlist:setList(unitstrings)
+    if #selectedUnits == 1 then
+      menu.unitlist:setSelected(prevSelectionIdx)
+    end
+    ShowResources(menu.resourceName, menu.resource, selectedUnits)
+    ShowLifePercent(menu.lifepct, selectedUnits)
+    ShowPlayer(menu.owner, selectedUnits)
+    ShowRectangle(menu.location, selectedUnits)
+  end
+
+  local function GetSelectedUnits()
+    local idx = menu.unitlist:getSelected() + 1
+    local selectedUnits
+    if idx == 0 then
+      return units
+    else
+      return {units[idx]}
+    end
+  end
+
+  local function LifeCallback()
+    print("Life setting: " .. menu.lifepct:getText())
+    local lifepct = tonumber(menu.lifepct:getText())
+    print(lifepct)
+    if lifepct then
+      for i,unit in ipairs(GetSelectedUnits()) do
+        SetUnitVariable(unit, "HitPoints", GetUnitTypeData(GetUnitVariable(unit, "Ident"), "HitPoints") * lifepct / 100)
+      end
+    end
+  end
+
+  local function ResourceCallback()
+    print("Resource " .. menu.resourceName:getCaption() ..  " setting: " .. menu.resource:getText())
+    resource = tonumber(menu.resource:getText())
+    print(resource)
+    if resource then
+      for i,unit in ipairs(GetSelectedUnits()) do
+        SetResourcesHeld(unit, resource)
+      end
+    end
+  end
+
+  local menubox = VBox({
+    HBox({
+      LListBox(300, 200, unitstrings, function(w) UpdateAll(GetSelectedUnits()) end):expanding():id("unitlist"),
+      VBox({
+        LLabel("Units in {n/a, n/a}, {n/a, n/a}"):id("location"),
+        HBox({
+          LLabel("Owner: "),
+          LDropDown({"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"}, function (dd)
+            for i,unit in ipairs(GetSelectedUnits()) do
+              SetUnitVariable(unit, "Player", dd:getSelected())
+            end
+            UpdateAll(GetSelectedUnits())
+          end):id("owner")
+        }),
+        HBox({
+          LLabel("Life %: "),
+          LTextInputField("n/a"):id("lifepct"),
+        }),
+        HBox({
+          LLabel("No resource"):id("resourceName"),
+          LTextInputField("n/a"):id("resource"),
+        }),
+      })
+    }),
+    HBox({
+      LFiller(),
+      LHalfButton(_("Ok"), nil, function()
+        LifeCallback()
+        ResourceCallback()
+        menu:stop()
+      end),
+      LHalfButton(_("Close"), nil, function() menu:stop() end),
+    }):withPadding(5)
+  }):withPadding(10)
+  menubox:addWidgetTo(menu, true)
+
+  local lastIdx = 0
+  menu:addLogicCallback(LuaActionListener(function()
+    local selIdx = menu.unitlist:getSelected()
+    if selIdx ~= lastIdx then
+      lastIdx = selIdx
+      UpdateAll(GetSelectedUnits())
+    end
+  end))
+  menu.lifepct:setActionCallback(LifeCallback)
+  menu.resource:setActionCallback(ResourceCallback)
+
+  UpdateAll(units)
+
   menu:run(false)
 end

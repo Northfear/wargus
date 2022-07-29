@@ -330,14 +330,18 @@ function RunPreferencesMenu()
    useFancyShadows:setMarked(wc2.preferences.UseFancyShadows)
    row = row + 1;
 
-   local selectionStyleList = {"rectangle", "alpha-rectangle", "circle", "alpha-circle", "corners"}
-   local selectionStyleList1 = {_("rectangle"), _("alpha-rectangle"), _("circle"), _("alpha-circle"), _("corners")}
+   local selectionStyleList = {"rectangle", "alpha-rectangle", "circle", "alpha-circle", "corners", "ellipse"}
+   local selectionStyleList1 = {_("rectangle"), _("alpha-rectangle"), _("circle"), _("alpha-circle"), _("corners"), _("ellipse")}
    menu:addLabel(_("Selection style:"), 225, 28 + 19 * 0, Fonts["game"], false)
    local selectionStyle = menu:addDropDown(selectionStyleList1, 225, 28 + 19 * 1, function(dd) end)
    selectionStyle:setSelected(tableindex(selectionStyleList, wc2.preferences.SelectionStyle) - 1)
-   selectionStyle:setActionCallback(
-      function()
-	 SetSelectionStyle(selectionStyleList[selectionStyle:getSelected() + 1])
+   selectionStyle:setActionCallback(function()
+      local selection = selectionStyleList[selectionStyle:getSelected() + 1]
+      if selection == "ellipse" then
+	      SetSelectionStyle(selection, 0.4)
+      else
+         SetSelectionStyle(selection)
+      end
    end)
    selectionStyle:setSize(120, 16)
 
@@ -394,9 +398,17 @@ function RunPreferencesMenu()
       function()
          SetFogOfWarBilinear(fowBilinear:isMarked())
    end)
+   
+   local hwCursor = menu:addImageCheckBox(_("Hardware cursor"), 225, 28 + 19 * 9 + 10, offi, offi2, oni, oni2, function()end)
+   hwCursor:setMarked(wc2.preferences.HardwareCursor)
+   hwCursor:setActionCallback(
+      function()
+         wc2.preferences.HardwareCursor = hwCursor:isMarked()
+         Preference.HardwareCursor = hwCursor:isMarked()
+         SavePreferences()
+   end)
 
    menu:addLabel(_("~!* - requires restart"), 10, 10 + 18 * 16, Fonts["game"], false)
-
 
    menu:addHalfButton("~!OK", "o", 206, 352 - 40,
 		      function()
@@ -706,7 +718,7 @@ function RunConfirmRestart(menu)
    local confirm = WarGameMenu(panel(4))
    confirm:resize(288, 128)
 
-   local mes = MultiLineLabel(_("You need to restart game to apply changes, exit now?"))
+   local mes = MultiLineLabel(_("You need to restart game to apply changes, restart now?"))
    mes:setFont(Fonts["game"])
    mes:setAlignment(MultiLineLabel.CENTER)
    mes:setVerticalAlignment(MultiLineLabel.TOP)
@@ -720,7 +732,7 @@ function RunConfirmRestart(menu)
 			 function()
 			    confirm:stop()
 			    menu:stop()
-			    Exit(0)
+			    RestartStratagus()
    end)
 
    confirm:addHalfButton(_("~!No"), "n", 3 * (300 / 3) - 130, 120 - 16 - 27,

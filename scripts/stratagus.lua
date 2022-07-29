@@ -56,13 +56,18 @@ end
 
 wargus = {}
 
+if not CanAccessFile("scripts/wc2-config.lua") then
+  Load("scripts/extraction.lua")
+  return
+end
+
 Load("scripts/wc2-config.lua")
 
 wargus.Name = _("Wargus")
 wargus.Homepage = "https://wargus.github.io"
-wargus.Copyright = _("(c) 1998-2021 by The Stratagus Project.")
+wargus.Copyright = _("(c) 1998-2022 by The Stratagus Project.")
 
-wargus.Version = "3.1.3"
+wargus.Version = "3.3.0"
 wargus.Licence = "GPL v2+"
 
 
@@ -380,6 +385,7 @@ end
 wc2 = {preferences = {}}
 Load("preferences.lua")
 local defaultPreferences = {
+  HardwareCursor = false,
 	CampaignBestScores = {},
 	CampaignProgress = {},
 	DeselectInMine = false,
@@ -502,11 +508,16 @@ UI.ButtonPanel.ShowCommandKey = wc2.preferences.ShowCommandKey
 Preference.MineNotifications = wc2.preferences.MineNotifications
 Preference.ShowMessages = wc2.preferences.ShowMessages
 Preference.PauseOnLeave = wc2.preferences.PauseOnLeave
-SetSelectionStyle(wc2.preferences.SelectionStyle)
+if wc2.preferences.SelectionStyle == "ellipse" then
+  SetSelectionStyle(wc2.preferences.SelectionStyle, 0.4)
+else
+  SetSelectionStyle(wc2.preferences.SelectionStyle)
+end
 SetNewViewportMode(wc2.preferences.ViewportMode)
 Preference.DeselectInMine = wc2.preferences.DeselectInMine
 Preference.StereoSound = wc2.preferences.StereoSound
 Preference.SimplifiedAutoTargeting = wc2.preferences.SimplifiedAutoTargeting
+Preference.HardwareCursor = wc2.preferences.HardwareCursor
 
 SetFogOfWarType(wc2.preferences.FogOfWarType)
 SetFogOfWarBilinear(wc2.preferences.FogOfWarBilinear)
@@ -516,42 +527,6 @@ if IsDebugEnabled == true then
 else
   SetEnableMapGrid(false)
 end
-
-function StoreSharedSettingsInBits()
-  local bits = 0
-  if wc2.preferences.FieldOfViewType == "simple-radial" then
-     bits = bits + 1 -- bit 0
-  end
-  if wc2.preferences.SimplifiedAutoTargeting then
-     bits = bits + 2 -- bit 1
-  end
-  return bits
-end
-
-function RestoreSharedSettingsFromBits(bits, errorCb)
-  if bits >= 2 then
-      -- bit 1 is set
-      wc2.preferences.SimplifiedAutoTargeting = true
-      Preference.SimplifiedAutoTargeting = true
-      bits = bits - 2
-  else
-      wc2.preferences.SimplifiedAutoTargeting = false
-      Preference.SimplifiedAutoTargeting = false
-  end
-  if bits >= 1 then
-      wc2.preferences.FieldOfViewType = "simple-radial"
-      SetFieldOfViewType("simple-radial")
-      bits = bits - 1
-  else
-      wc2.preferences.FieldOfViewType = "shadow-casting"
-      SetFieldOfViewType("shadow-casting")
-      SetFogOfWarType("enhanced")
-  end
-end
-
-InitFuncs:add(function()
-     GameSettings.MapRichness = StoreSharedSettingsInBits()
-end)
 
 --- Uses Stratagus Library path!
 Load("scripts/wc2.lua")
