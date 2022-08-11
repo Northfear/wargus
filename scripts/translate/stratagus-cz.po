@@ -5,91 +5,92 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: POEditor.com\n"
 "Project-Id-Version: Stratagus\n"
-"Language: es\n"
+"Language: cs\n"
 
 #: action/action_build.cpp:204
 msgid "You cannot reach building place"
-msgstr "No puedes alcanzar el lugar del edificio"
+msgstr "Nelze dosáhnout místa stavby\n"
+""
 
 #: action/action_build.cpp:229
 msgid "Not enough resources to build %s"
-msgstr "Sin recursos suficientes para construir %s"
+msgstr "Nedostatek zdrojů pro stavbu %s"
 
 #: action/action_build.cpp:236
 msgid "Can't build more units %s"
-msgstr "No puedes construir más unidades %s"
+msgstr "Nelze postavit více jednotek %s"
 
 #: action/action_build.cpp:322
 msgid "Unable to create building %s"
-msgstr "Incapaz de crear edificio %s"
+msgstr "Nelze postavit budovu %s"
 
 #: action/action_build.cpp:472
 msgid "You cannot build %s here"
-msgstr "No puedes construir %s ahí"
+msgstr "Tady nelze stavět %s"
 
 #: action/action_built.cpp:196
 msgid "New %s done"
-msgstr "Nuevo/a %s terminado/a"
+msgstr "Nová %s dokončena"
 
 #: action/action_repair.cpp:178
 msgid "We need more %s for repair!"
-msgstr "¡Necesitamos más %s para la reparación!"
+msgstr "Potřebujeme více %s pro opravení!"
 
 #: action/action_research.cpp:145 action/action_research.cpp:147
 msgid "%s: research complete"
-msgstr "%s: investigación finalizada"
+msgstr "%s: výzkum dokončen"
 
 #: action/action_resource.cpp:785
 msgid "%s has collapsed!"
-msgstr "¡%s ha colapsado!"
+msgstr "%s se zřítil!"
 
 #: action/action_resource.cpp:861
 msgid "%s is running low!"
-msgstr "¡%s está agotandose!"
+msgstr "dochází nám %s!"
 
 #: action/action_spellcast.cpp:321
 msgid "%s: not enough mana for spell: %s"
-msgstr "%s: no hay maná suficiente para el hechizo: %s"
+msgstr "%s: nedostatek many na kouzlo: %s"
 
 #: action/action_spellcast.cpp:325
 msgid "%s: spell is not ready yet: %s"
-msgstr "%s: el hechizo no está listo aún: %s"
+msgstr "%s: kouzlo není připraveno: %s"
 
 #: action/action_spellcast.cpp:329
 msgid "%s: not enough resources to cast spell: %s"
-msgstr "%s: no hay recursos suficientes para lanzar el hechizo: %s"
+msgstr "%s: nedostatek zdrojů pro seslání: %s"
 
 #: action/action_spellcast.cpp:333
 msgid "%s: can't cast spell: %s"
-msgstr "%s: no puede lanzar el hechizo: %s"
+msgstr "%s: nelze čarovat: %s"
 
 #: action/action_train.cpp:208
 msgid "Unable to train %s"
-msgstr "No se puede entrenar %s"
+msgstr "Nelze vycvičit %s"
 
 #: action/action_train.cpp:236
 msgid "New %s ready"
-msgstr "Nuevo/a %s listo/a"
+msgstr "Nová %s je připravena"
 
 #: action/action_upgradeto.cpp:287
 msgid "Upgrade to %s canceled"
-msgstr "Actualización a %s cancelada"
+msgstr "Vylepšení na %s bylo zrušeno"
 
 #: action/action_upgradeto.cpp:291
 msgid "Upgrade to %s complete"
-msgstr "Actualización a %s finalizada"
+msgstr "Vylepšení na %s dokončeno"
 
 #: action/command.cpp:987
 msgid "Player \"%s\" has left the game"
-msgstr "Jugador \"%s\" se ha desconectado"
+msgstr "Hráč \"%s\" opustil hru"
 
 #: action/command.cpp:989
 msgid "Player \"%s\" has been killed"
-msgstr "Jugador \"%s\" ha sido derrotado"
+msgstr "Hráč \"%s\" byl poražen"
 
 #: editor/editloop.cpp:313
 msgid "Unit deleted"
-msgstr "Unidad eliminada"
+msgstr "Jednotka smazána"
 
 #: editor/editloop.cpp:953
 msgid "Editor (%d %d)"
@@ -97,251 +98,245 @@ msgstr "Editor (%d %d)"
 
 #: editor/editloop.cpp:1000
 msgid "#%d '%s' Player:#%d %s"
-msgstr "#%d '%s' Jugador:#%d %s"
+msgstr "#%d '%s' Hráč:#%d %s"
 
 #: editor/editloop.cpp:1004
 msgid " Amount %d"
-msgstr " Cantidad %d"
+msgstr " Počet %d"
 
 #: editor/editloop.cpp:1382
 msgid "Mirror editing enabled: 2-side"
-msgstr "Edición espejo habilitada: 2 caras"
+msgstr "Zrcadlové editování povoleno: 2-strany"
 
 #: editor/editloop.cpp:1385
 msgid "Mirror editing enabled: 4-side"
-msgstr "Edición espejo habilitada: 4 caras"
+msgstr "Zrcadlové editování povoleno: 4-strany"
 
 #: editor/editloop.cpp:1388
 msgid "Mirror editing disabled"
-msgstr "Edición espejo deshabilitada"
+msgstr "Zrcadlové editování zakázáno"
 
 #: editor/editloop.cpp:1437 editor/editloop.cpp:1456
 msgid "Unit owner modified"
-msgstr "Dueño/a de unidad modificado/a"
+msgstr "Vlastnictví jednotky změněno"
 
 #: editor/editloop.cpp:1529
 msgid "Select player #%d"
-msgstr "Selecciona el jugador #%d"
+msgstr "Vyber hráče #%d"
 
 #: editor/editloop.cpp:1785
 msgid "Script %s"
-msgstr "Script %s"
+msgstr "Skript %s"
 
 #: game/game.cpp:157
 msgid "Do it! Do it now!"
-msgstr "¡Hazlo! ¡Hazlo ahora!"
+msgstr "Udělej to! Udělej to hned!"
 
 #: game/replay.cpp:811
 msgid "No sync info for this replay !"
-msgstr "¡No hay información de sincronización para esta repetición!"
+msgstr "Žádné sync info pro tento záznam!"
 
 #: game/replay.cpp:813
 msgid "Replay got out of sync (%lu) !"
-msgstr "¡La repetición se desincronizo (%lu)!"
+msgstr "Záznam je mimo sync (%lu)!"
 
 #: game/replay.cpp:822
 msgid "Replay got out of sync !"
-msgstr "¡La repetición se desincronizo!"
+msgstr "Záznam je mimo sync!"
 
 #: game/replay.cpp:939 game/replay.cpp:953
 msgid "End of replay"
-msgstr "Fin de la repetición"
+msgstr "Konec záznamu"
 
 #: missile/missileconfig.cpp:54
 msgid "Missile %s"
-msgstr "Misil %s"
+msgstr "Střela %s"
 
 #: missile/missileconfig.cpp:58
 msgid "Can't find missile %s\n"
 ""
-msgstr "No se puede encontrar el misil­: %s\n"
-""
+msgstr "Nemůžu nalézt střelu %s"
 
 #: network/network.cpp:831
 msgid "%s sent bad command"
-msgstr "%s envió mal comando"
+msgstr "%s odeslán špatný příkaz"
 
 #: network/network.cpp:930
 msgid "Network out of sync"
-msgstr "Red fuera de sincronización"
+msgstr "Síť mimo sync"
 
 #: network/network.cpp:1125
 msgid "Waiting for player \"%s\": %d:%02d"
-msgstr "Esperando a jugador \"%s\": %d:%02d"
+msgstr "Čekám na hráče \"%s\": %d:%02d"
 
 #: network/network.cpp:1138
 msgid "Timed out"
-msgstr "Tiempo caducado"
+msgstr "Čas vypršel"
 
 #: stratagus/construct.cpp:98 stratagus/construct.cpp:107
 msgid "Construction %s"
-msgstr "Construcción %s"
+msgstr "Výstavba %s"
 
 #: stratagus/player.cpp:1031
 msgid "Building Limit Reached"
-msgstr "Límite de edificios alcanzado"
+msgstr "Dosažen limit budov"
 
 #: stratagus/player.cpp:1035
 msgid "Unit Limit Reached"
-msgstr "Límite de unidades alcanzado"
+msgstr "Dosažen limit jednotek"
 
 #: stratagus/player.cpp:1039
 msgid "Insufficient Supply, increase Supply."
-msgstr "Suministro insuficiente, aumente el suministro."
+msgstr "Nedostatek zásob, zvyšte zásoby."
 
 #: stratagus/player.cpp:1043
 msgid "Total Unit Limit Reached"
-msgstr "Límite de unidades totales alcanzado"
+msgstr "Celkový limit jednotek dosažen"
 
 #: stratagus/player.cpp:1047
 msgid "Limit of %d reached for this unit type"
-msgstr "Límite de %d alcanzado para este tipo de unidad"
+msgstr "Dosažen limit pro %d typ jednotek"
 
 #: stratagus/player.cpp:1073
 msgid "Not enough %s...%s more %s."
-msgstr "No hay %s suficiente...%s más %s."
+msgstr "Nedostatek %s... %s více %s."
 
 #: stratagus/script.cpp:2562
 msgid "Script %s\n"
 ""
-msgstr "Script %s\n"
-""
+msgstr "Skript %s"
 
 #: stratagus/stratagus.cpp:416
 msgid "Thanks for playing Stratagus.\n"
 ""
-msgstr "Gracias por jugar Stratagus.\n"
-""
+msgstr "Díky, že jste hráli Stratagus."
 
 #: ui/botpanel.cpp:1125
 msgid "Select Target"
-msgstr "Selecciona el objetivo"
+msgstr "Vyber cíl"
 
 #: ui/botpanel.cpp:1289
 msgid "Select Location"
-msgstr "Selecciona la posición"
+msgstr "Vyber lokaci"
 
 #: ui/botpanel.cpp:1321
 msgid "Unit training queue is full"
-msgstr "La cola de entrenamiento de unidades está llena"
+msgstr "Fronta pro výcvik je plná"
 
 #: ui/icons.cpp:272
 msgid "Icon %s"
-msgstr "Icono %s"
+msgstr "Ikona %s"
 
 #: ui/icons.cpp:275
 msgid "Can't find icon %s\n"
 ""
-msgstr "No se puede encontrar el icono: %s\n"
-""
+msgstr "Nemůžu nalézt ikonu %s"
 
 #: ui/icons.cpp:288
 msgid "Icons %s"
-msgstr "Iconos %s"
+msgstr "Ikony %s"
 
 #: ui/interface.cpp:269
 msgid "Sound is on."
-msgstr "Sonido habilitado."
+msgstr "Zvuk je zapnut."
 
 #: ui/interface.cpp:271
 msgid "Sound is off."
-msgstr "Sonido deshabilitado."
+msgstr "Zvuk je vypnut."
 
 #: ui/interface.cpp:286
 msgid "Music is off."
-msgstr "Música deshabilitada."
+msgstr "Hudba je vypnuta."
 
 #: ui/interface.cpp:289
 msgid "Music is on."
-msgstr "Música habilitada."
+msgstr "Hudba je zapnuta."
 
 #: ui/interface.cpp:302 ui/mouse.cpp:1948
 msgid "Game Paused"
-msgstr "Juego Pausado"
+msgstr "Hra je pozastavena"
 
 #: ui/interface.cpp:304
 msgid "Game Resumed"
-msgstr "Juego Reanudado"
+msgstr "Hra pokračuje"
 
 #: ui/interface.cpp:335
 msgid "Big map enabled"
-msgstr "Mapa grande habilitado"
+msgstr "Velká mapa zapnuta"
 
 #: ui/interface.cpp:344
 msgid "Returning to old map"
-msgstr "Regresando al mapa viejo"
+msgstr "Navrácení ke staré mapě"
 
 #: ui/interface.cpp:358
 msgid "Faster"
-msgstr "Rapido"
+msgstr "Rychleji"
 
 #: ui/interface.cpp:377
 msgid "Slower"
-msgstr "Lento"
+msgstr "Pomaleji"
 
 #: ui/interface.cpp:390
 msgid "Set default game speed"
-msgstr "Elegir velocidad por defecto"
+msgstr "Nastav základní rychlost"
 
 #: ui/interface.cpp:441
 msgid "Terrain displayed."
-msgstr "Terreno mostrado."
+msgstr "Terén zobrazen."
 
 #: ui/interface.cpp:443
 msgid "Terrain hidden."
-msgstr "Terreno oculto."
+msgstr "Terén schován."
 
 #: ui/interface.cpp:487
 msgid "Grab mouse toggled."
-msgstr "Agarre de ratón alternado."
+msgstr "Chytnutí myší zapnuto."
 
 #: ui/interface.cpp:1076
 msgid "Screenshot made."
-msgstr "Captura de pantalla hecha."
+msgstr "Vytvořen snímek."
 
 #: ui/mainscr.cpp:892
 msgid "Last message repeated ~<%d~> times"
-msgstr "Último mensaje repetido ~<%d~> veces"
+msgstr "Poslední zpráva zopakována ~<%d~>"
 
 #: ui/mainscr.cpp:1024
 msgid "~<Event: %s~>"
-msgstr "~<Evento: %s~"
+msgstr "~<Event: %s~>"
 
 #: ui/mainscr.cpp:1071
 msgid "Cycle:"
-msgstr "Ciclo:"
+msgstr "Cyklus:"
 
 #: ui/mouse.cpp:2126
 msgid "You have ~<%d~> %ss"
-msgstr "Tienes ~<%d~> %s"
+msgstr "Máš ~<%d~> %ss"
 
 #: ui/mouse.cpp:2130
 msgid "You have ~<%d~> %s(s)"
-msgstr "Tienes ~<%d~> %s"
+msgstr "Máš ~<%d~> %s(s)"
 
 #: unit/depend.cpp:256 unit/depend.cpp:314
 msgid "Requirements:\n"
 ""
-msgstr "Requisitos:\n"
-""
+msgstr "Požadavky:"
 
 #: unit/unit.cpp:2815
 msgid "%s attacked"
-msgstr "%s atacado/a"
+msgstr "%s napaden"
 
 #: unit/unittype.cpp:953
 msgid "unit-type '%s' without animations, ignored.\n"
 ""
-msgstr "El tipo de unidad '%s' no tiene animaciones, ignorado.\n"
-""
+msgstr "typ jednotky '%s' bez animace, ignorováno."
 
 #: unit/unittype.cpp:1071
 msgid "Unit \"%s\""
-msgstr "Unidades' \"%s\""
+msgstr "Jednotka \"%s\""
 
 #: video/cursor.cpp:105
 msgid "Cursor %s"
-msgstr "Ratón %s"
+msgstr "Kurzor %s"
 
 #: video/sdl.cpp:165
 msgid "esc"
@@ -349,49 +344,45 @@ msgstr "esc"
 
 #: action/action_build.cpp:356
 msgid "%s has rebuilt a base, and will no longer be revealed!"
-msgstr "¡%s ha hecho una nueva base, y ya no será revelado/a!"
+msgstr "%s postavil základnu, a nadále nebude odhalen!"
 
 #: action/action_build.cpp:358
 msgid "You have rebuilt a base, and will no longer be revealed!"
-msgstr "¡Has hecho una nueva base, y ya no serás revelado/a!"
+msgstr "Postavil jsi základnu, a nejsi nadále odhalen!"
 
 #: editor/editloop.cpp:1287
-#, fuzzy
 msgid "Unit cannot be placed here."
-msgstr "La unidad no puede colocarse ahí."
+msgstr "Zde nelze umístit jednotku."
 
 #: map/script_map.cpp:848
-#, fuzzy
 msgid "Tileset '%s'"
-msgstr "Terreno `%s'"
+msgstr "Typ dlaždice '%s'"
 
 #: stratagus/mainloop.cpp:312
 msgid "Autosave"
-msgstr "Autoguardado"
+msgstr "Auto uložení"
 
 #: stratagus/player.cpp:1216
 msgid "%s has not rebuilt their base and is being revealed!"
-msgstr "¡%s no ha hecho una nueva base y ha sido revelado/a!"
+msgstr "%s neobnovil základnu a bude odhalen!"
 
 #: stratagus/player.cpp:1218
 msgid "You have not rebuilt your base and have been revealed!"
-msgstr "¡No has hecho una nueva base y has sido revelado/a!"
+msgstr "Nepostavil jsi základnu a budeš odhalen!"
 
 #: ui/interface.cpp:122
-#, fuzzy
 msgid "MESSAGE:%s"
-msgstr "MENSAJE:%s~!_"
+msgstr "ZPRÁVA:%s"
 
 #: unit/unit.cpp:1402
 msgid "%s has lost their last base, and will be revealed in thirty seconds!"
-msgstr "¡%s perdió su última base, y será revelado/a en treinta segundos!"
+msgstr "%s ztratil svou poslední základnu a bude odhalen do 30 sekund!"
 
 #: unit/unit.cpp:1404
 msgid "You have lost your last base, and will be revealed in thirty seconds!"
-msgstr "¡Has perdido tu última base, y serás revelado/a en treinta segundos!"
+msgstr "Ztratil jsi poslední základnu a budeš odhalen do 30 sekund!"
 
 #: unit/unit_draw.cpp:348
-#, fuzzy
 msgid "Decorations '%s'"
-msgstr "Decoraciones `%s'"
+msgstr "Dekorace '%s'"
 
